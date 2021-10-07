@@ -60,12 +60,12 @@ generateNormalDistribution(std::uint32_t howMany, float mean, float stdev,
   }
   std::random_device rd;
   std::mt19937 engine(rd());
-  std::normal_distribution<double> dist(mean, stdev);
+  std::normal_distribution<> distNorm(mean, stdev);
   // double myRandN = dist(engine);
   for (unsigned int i = 0; i < howMany; i++) {
 
-    double myRandN = dist(engine);
-    double myRandNFloored = static_cast<double>((static_cast<int>(myRandN)));
+    auto myRandN = distNorm(engine);
+    unsigned int myRandNFloored = (static_cast<unsigned int>(myRandN));
     if (myRandNFloored > mybins.at(mybins.size() - 1).maxValue) {
       mybins.at(mybins.size() - 1).count++;
       continue;
@@ -73,7 +73,7 @@ generateNormalDistribution(std::uint32_t howMany, float mean, float stdev,
       mybins.at(0).count++;
       continue;
     }
-    double index = (myRandNFloored - min) / size;
+    unsigned int index = (myRandNFloored - min) / size;
     mybins.at(index).count++;
   }
   return mybins;
