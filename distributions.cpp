@@ -83,7 +83,7 @@ generatePoissonDistribution(std::uint32_t howMany, std::uint8_t howOften,
                             std::uint8_t numberBins) {
   std::cout << "generating Poission Distributions..." << std::endl;
   int min = 0;
-  int max = numberBins - 1;
+  // int max = numberBins - 1;
   int size = 1;
   //   std::cout << "bin size: " << size << std::endl;
   std::vector<DistributionPair> mybins;
