@@ -29,11 +29,11 @@ generateUniformDistribution(std::uint32_t howMany, std::uint32_t min,
   std::mt19937 engine(rd());
   std::uniform_int_distribution<unsigned int> dist(min, max);
 
-  for (int i = 0; i < myBins.size(); i++) {
+  for (unsigned int i = 0; i < myBins.size(); i++) {
     std::cout << "[" << myBins[i].minValue << ", " << myBins[i].maxValue << "]"
               << std::endl;
   }
-  for (int i = 0; i < howMany; i++) {
+  for (unsigned int i = 0; i < howMany; i++) {
     // Creating howMany random nums
     unsigned int myRandN = dist(engine);
     unsigned int myIndex = ((myRandN - min) / (width + 1));
@@ -49,20 +49,20 @@ generateUniformDistribution(std::uint32_t howMany, std::uint32_t min,
 std::vector<DistributionPair>
 generateNormalDistribution(std::uint32_t howMany, float mean, float stdev,
                            std::uint8_t numberBins) {
-  float max = (mean + (4 * stdev));
-  float min = (mean - (4 * stdev));
-  float size = (max - min) / numberBins;
+  std::uint32_t max = static_cast<std::uint32_t> ((mean + (4 * stdev)));
+  std::uint32_t min = static_cast<std::uint32_t> ((mean - (4 * stdev)));
+  std::uint32_t size = (max - min) / numberBins;
 
   std::vector<DistributionPair> mybins;
-  for (float num = min; num < max; num += size) {
+  for (std::uint32_t num = min; num < max; num += size) {
     DistributionPair *mypair = new DistributionPair(num, num + (size - 1));
     mybins.push_back(*mypair);
   }
   std::random_device rd;
   std::mt19937 engine(rd());
   std::normal_distribution<double> dist(mean, stdev);
-  double myRandN = dist(engine);
-  for (int i = 0; i < howMany; i++) {
+  // double myRandN = dist(engine);
+  for (unsigned int i = 0; i < howMany; i++) {
 
     double myRandN = dist(engine);
     double myRandNFloored = static_cast<double>((static_cast<int>(myRandN)));
@@ -94,8 +94,8 @@ generatePoissonDistribution(std::uint32_t howMany, std::uint8_t howOften,
   std::random_device rd;
   std::mt19937 engine(rd());
   std::poisson_distribution<int> dist(howOften);
-  for (int i = 0; i < howMany; i++) {
-    int myrandN = dist(engine);
+  for (unsigned int i = 0; i < howMany; i++) {
+    unsigned int myrandN = static_cast<unsigned int> (dist(engine));
     if (myrandN > mybins.at(mybins.size() - 1).maxValue) {
       mybins.at(mybins.size() - 1).count++;
       continue;
@@ -112,7 +112,7 @@ void plotDistribution(std::string title,
                       const std::vector<DistributionPair> &distribution,
                       const std::uint8_t maxPlotLineSize) {
   std::uint32_t max = 0;
-  std::uint32_t index;
+  std::uint32_t index = 0;
   for (int i = 0; i < distribution.size(); i++) {
     if (distribution[i].count > max) {
       max = distribution[i].count;
