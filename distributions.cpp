@@ -113,7 +113,7 @@ void plotDistribution(std::string title,
                       const std::uint8_t maxPlotLineSize) {
   std::uint32_t max = 0;
   std::uint32_t index = 0;
-  for (int i = 0; i < distribution.size(); i++) {
+  for (unsigned int i = 0; i < distribution.size(); i++) {
     if (distribution[i].count > max) {
       max = distribution[i].count;
       index = i;
