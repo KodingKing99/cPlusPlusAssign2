@@ -1,5 +1,5 @@
 //////////////
-// c++ assignment 2
+// c++ assignment 3
 // author: Nick Sorenson
 // A02287085
 //////////////
@@ -8,22 +8,10 @@
 #include <random>
 #include <string>
 #include <vector>
-// using namespace dist;
-// class DistributionPair {
-// public:
-//   DistributionPair(std::uint32_t minValue, std::uint32_t maxValue)
-//       : minValue(minValue), maxValue(maxValue), count(0) {
 
-//       }
-//     std::uint32_t minValue;
-//     std::uint32_t maxValue;
-//     std::uint32_t count;
-// };
 DistributionPair::DistributionPair(std::uint32_t minValue,
                                    std::uint32_t maxValue)
-    : minValue(minValue), maxValue(maxValue), count(0) {
-
-    }
+    : minValue(minValue), maxValue(maxValue), count(0) {}
 
 bool isEven(unsigned int x) { return (x % 2 == 0); }
 std::vector<DistributionPair>
@@ -48,7 +36,7 @@ generateUniformDistribution(std::uint32_t howMany, std::uint32_t min,
   for (int i = 0; i < howMany; i++) {
     // Creating howMany random nums
     unsigned int myRandN = dist(engine);
-    int myIndex = ((myRandN - min) / (width + 1));
+    unsigned int myIndex = ((myRandN - min) / (width + 1));
     if (myRandN > myBins.at(myBins.size() - 1).maxValue) {
       myBins.at(myBins.size() - 1).count++;
     } else {
@@ -123,13 +111,6 @@ generatePoissonDistribution(std::uint32_t howMany, std::uint8_t howOften,
 void plotDistribution(std::string title,
                       const std::vector<DistributionPair> &distribution,
                       const std::uint8_t maxPlotLineSize) {
-  std::cout << "---" << title << "---" << std::endl;
-//   for (int i = 0; i < distribution.size(); i++) {
-//     std::cout << '( ' << distribution[i].minValue << " , "
-//               << distribution[i].maxValue << " )"
-//               << ":    " << distribution[i].count << std::endl;
-//   }
-// }
   std::uint32_t max = 0;
   std::uint32_t index;
   for (int i = 0; i < distribution.size(); i++) {
@@ -143,9 +124,9 @@ void plotDistribution(std::string title,
 
   std::cout << title << std::endl;
   for (DistributionPair dp : distribution) {
+    // DistributionPair dp = distribution[i];
     std::string stars((uint32_t)(dp.count * scale), '*');
-    std::cout << "[" << dp.minValue << ", " << dp.maxValue << "] : " <<
-    stars
+    std::cout << "[" << dp.minValue << ", " << dp.maxValue << "] : " << stars
               << std::endl;
   }
   std::cout << std::endl;

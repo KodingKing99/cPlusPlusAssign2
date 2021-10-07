@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.12)
-project(GoogleTestIntro)
 
 #
 # Manually specifying all the source files.
 #
+set(PROJECT_NAME RandDistributions)
+project(${PROJECT_NAME})
+
 set(HEADER_FILES
     distributions.hpp)
 
@@ -13,23 +15,24 @@ set(SOURCE_FILES
 set(UNIT_TEST_FILES
     TestDistributions.cpp)
 
+
 #
 # This is the main target
 #
-add_executable(GoogleTestIntro ${HEADER_FILES} ${SOURCE_FILES} main.cpp)
+add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES} main.cpp)
 add_executable(UnitTestRunner  ${HEADER_FILES} ${SOURCE_FILES} ${UNIT_TEST_FILES})
 
 #
 # We want the C++ 20 standard for our project
 #
-set_property(TARGET GoogleTestIntro PROPERTY CXX_STANDARD 20)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 set_property(TARGET UnitTestRunner PROPERTY CXX_STANDARD 20)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    target_compile_options(GoogleTestIntro PRIVATE /W4 /permissive-)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /permissive-)
     target_compile_options(UnitTestRunner PRIVATE /W4 /permissive-)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_compile_options(GoogleTestIntro PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
     target_compile_options(UnitTestRunner PRIVATE -Wall -Wextra -pedantic)
 endif()
 
@@ -62,7 +65,7 @@ if (CLANG_FORMAT)
     #
     # This makes the clang-format target a dependency of the main GoogleTestIntro project
     #
-    add_dependencies(GoogleTestIntro ClangFormat)
+    add_dependencies(${PROJECT_NAME} ClangFormat)
 else()
     message("Unable to find clang-format")
 endif()
