@@ -1,4 +1,2 @@
-CMakeLists.txt.in
-TestDistributions.cpp
 build
 .vscode
